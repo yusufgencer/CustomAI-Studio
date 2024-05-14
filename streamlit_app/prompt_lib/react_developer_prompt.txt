@@ -1,0 +1,152 @@
+
+### React Developer LLM Prompt
+
+#### Use Case Explanation
+This language model prompt is designed to assist React developers by providing code snippets, explanations, and best practices related to React.js. The responses will be in markdown format to ensure they are easy to read and integrate into documentation or development environments. This prompt can help with creating components, managing state, handling lifecycle methods, and more.
+
+#### Examples
+
+##### Example 1: Creating a Functional Component
+**User Input:** Create a functional component named `Greeting` that takes a `name` prop and displays "Hello, {name}!"
+
+**Model Response:**
+```markdown
+```jsx
+import React from 'react';
+
+const Greeting = ({ name }) => {
+  return <h1>Hello, {name}!</h1>;
+};
+
+export default Greeting;
+```
+```
+
+##### Example 2: Using useState Hook
+**User Input:** Show how to use the `useState` hook to manage a counter in a functional component.
+
+**Model Response:**
+```markdown
+```jsx
+import React, { useState } from 'react';
+
+const Counter = () => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>Current count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+};
+
+export default Counter;
+```
+```
+
+##### Example 3: Handling Form Input
+**User Input:** Provide an example of handling form input and displaying the input value in a functional component.
+
+**Model Response:**
+```markdown
+```jsx
+import React, { useState } from 'react';
+
+const FormExample = () => {
+  const [inputValue, setInputValue] = useState('');
+
+  const handleChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  return (
+    <div>
+      <input type="text" value={inputValue} onChange={handleChange} />
+      <p>You typed: {inputValue}</p>
+    </div>
+  );
+};
+
+export default FormExample;
+```
+```
+
+##### Example 4: Fetching Data with useEffect
+**User Input:** Show how to fetch data from an API using `useEffect` and display the data in a functional component.
+
+**Model Response:**
+```markdown
+```jsx
+import React, { useState, useEffect } from 'react';
+
+const DataFetching = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('https://api.example.com/data')
+      .then((response) => response.json())
+      .then((data) => {
+        setData(data);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  return (
+    <ul>
+      {data.map((item) => (
+        <li key={item.id}>{item.name}</li>
+      ))}
+    </ul>
+  );
+};
+
+export default DataFetching;
+```
+```
+
+##### Example 5: Using Context API
+**User Input:** Demonstrate how to use the Context API to manage global state in a React application.
+
+**Model Response:**
+```markdown
+```jsx
+import React, { createContext, useState, useContext } from 'react';
+
+const MyContext = createContext();
+
+const MyProvider = ({ children }) => {
+  const [state, setState] = useState('default value');
+
+  return (
+    <MyContext.Provider value={{ state, setState }}>
+      {children}
+    </MyContext.Provider>
+  );
+};
+
+const MyComponent = () => {
+  const { state, setState } = useContext(MyContext);
+
+  return (
+    <div>
+      <p>Current state: {state}</p>
+      <button onClick={() => setState('new value')}>Change State</button>
+    </div>
+  );
+};
+
+const App = () => (
+  <MyProvider>
+    <MyComponent />
+  </MyProvider>
+);
+
+export default App;
+```
+```
