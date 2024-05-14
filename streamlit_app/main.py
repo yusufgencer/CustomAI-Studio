@@ -303,37 +303,28 @@ class CustomAIStudio:
             clear_chat()
             st.rerun()
 
-    def render_create_assistant_page(self):
+    def render_create_assistant_page(self) -> None:
+        """
+        Renders the create assistant page in the Streamlit app.
+
+        Returns
+        -------
+        None
+        """
         st.title("Create Your CustomAI Assistant")
         assistant_name = st.text_input("Assistant Name:")
         prompt_option = st.selectbox("Choose Prompt Option:", ["Custom Prompt", "Auto-generate Prompt"])
-        st.session_state.user_prompt = ""
 
         if prompt_option == "Custom Prompt":
             st.session_state.user_prompt = st.text_area("Enter your custom prompt:")
         elif prompt_option == "Auto-generate Prompt":
             user_input = st.text_area("Provide input for auto-prompt generation:")
             if st.button("Generate Prompt", key="generate_prompt"):
-                system_prompt = "You are a prompt generator. Always provide the prompt in text format. Make it a detailed prompt and add examples."
-                model_option = "llama3-70b-8192"
-                max_tokens = 8192
-
                 try:
-                    chat_completion = self.client.chat.completions.create(
-                        model=model_option,
-                        messages=[
-                            {"role": "system", "content": system_prompt},
-                            {"role": "user", "content": user_input}
-                        ],
-                        max_tokens=max_tokens,
-                        stream=True
-                    )
-
-                    st.session_state.generated_prompt = ""
-                    for response in self.generate_chat_responses(chat_completion):
-                        st.session_state.generated_prompt += response
+                    generated_prompt = self._generate_prompt(user_input)
+                    st.session_state.generated_prompt = generated_prompt
                     st.success("Prompt generated succesfully")
-                    st.info(f"{st.session_state.generated_prompt}")
+                    st.info(f"{generated_prompt}")
                 except Exception as e:
                     st.error(f"Failed to generate prompt: {e}")
 
@@ -343,11 +334,71 @@ class CustomAIStudio:
             elif prompt_option == "Auto-generate Prompt":
                 final_prompt = st.session_state.generated_prompt
             if assistant_name:
-                st.session_state.assistants[assistant_name] = final_prompt
+                self._create_assistant(assistant_name, final_prompt)
                 st.success(f"Assistant '{assistant_name}' created successfully with prompt:")
                 st.info(f"{final_prompt}")
             else:
                 st.write("Please enter a valid assistant name.")
+
+    def _get_system_prompt(self) -> str:
+        """
+        Reads the system prompt from a file.
+
+        Returns
+        -------
+        str
+            The system prompt.
+        """
+        with open("streamlit_app/system_prompt.txt", "r", encoding="utf-8") as file:
+            return file.read()
+
+    def _generate_prompt(self, user_input: str) -> str:
+        """
+        Generates a prompt based on the user input.
+
+        Parameters
+        ----------
+        user_input : str
+            The user input for auto-prompt generation.
+
+        Returns
+        -------
+        str
+            The generated prompt.
+        """
+        system_prompt = self._get_system_prompt()
+        model_option = "llama3-70b-8192"
+        max_tokens = 8192
+        chat_completion = self.client.chat.completions.create(
+            model=model_option,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_input}
+            ],
+            max_tokens=max_tokens,
+            stream=True
+        )
+        generated_prompt = ""
+        for response in self.generate_chat_responses(chat_completion):
+            generated_prompt += response
+        return generated_prompt
+
+    def _create_assistant(self, assistant_name: str, prompt: str) -> None:
+        """
+        Creates a custom AI assistant with the given name and prompt.
+
+        Parameters
+        ----------
+        assistant_name : str
+            The name of the assistant.
+        prompt : str
+            The prompt for the assistant.
+
+        Returns
+        -------
+        None
+        """
+        st.session_state.assistants[assistant_name] = prompt
 
     def run(self):
         self.set_page_config()
