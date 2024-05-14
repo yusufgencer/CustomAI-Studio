@@ -1,0 +1,4 @@
+.vscode/
+myenv/
+# Ignore the secrets.toml file
+.streamlit/secrets.toml
