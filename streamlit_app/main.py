@@ -421,5 +421,10 @@ class CustomAIStudio:
             self.render_create_assistant_page()            
 
 if __name__ == "__main__":
+    """
+    Main entry point of the application.
+
+    Creates an instance of the CustomAIStudio class and runs the application.
+    """
     app = CustomAIStudio()
     app.run()
