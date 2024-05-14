@@ -400,7 +400,15 @@ class CustomAIStudio:
         """
         st.session_state.assistants[assistant_name] = prompt
 
-    def run(self):
+    def run(self) -> None:
+        """
+        Runs the application by setting up the page configuration, displaying the sidebar, 
+        setting up prompts, managing sidebar assistants, and handling API keys. 
+        Depending on the current page, it renders either the chat page or the create assistant page.
+
+        Returns:
+        None
+        """
         self.set_page_config()
         self.display_sidebar()
         self.setup_prompts()
@@ -410,7 +418,7 @@ class CustomAIStudio:
         if st.session_state.page == "Chat Page":
             self.render_chat_page()
         elif st.session_state.page == "Create Assistant":
-            self.render_create_assistant_page()
+            self.render_create_assistant_page()            
 
 if __name__ == "__main__":
     app = CustomAIStudio()
