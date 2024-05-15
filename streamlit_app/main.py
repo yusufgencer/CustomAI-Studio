@@ -117,7 +117,7 @@ class CustomAIStudio:
 
         if self.groq_api_key:
             st.session_state["GROQ_API_KEY"] = self.groq_api_key
-            st.sidebar.write("API Key stored successfully!")
+            st.sidebar.success("API Key stored successfully!")
 
         # Add navigation buttons for Chat Page and Create Assistant Page
         col1, col2 = st.sidebar.columns([1, 1])
