@@ -212,7 +212,8 @@ class CustomAIStudio:
         self.client = Groq(api_key=st.session_state["GROQ_API_KEY"])
 
     def render_chat_page(self):
-        st.title("CustomAI Studio Powered by Groq")
+
+        st.title("CustomAI Studio - Powered by Groq")
         if 'selected_assistant' in st.session_state:
             st.write(f"Selected assistant: {st.session_state['selected_assistant']}")
 
