@@ -35,7 +35,9 @@ class CustomAIStudio:
             "llama3-groq-8b-8192-tool-use-preview": {"name": "llama3-groq-8b-8192-tool-use-preview", "tokens": 32768, "developer": "Groq"},
             "llama3-groq-70b-8192-tool-use-preview": {"name": "llama3-groq-70b-8192-tool-use-preview", "tokens": 8192, "developer": "Groq"},
             "gemma2-9b-it": {"name": "gemma2-9b-it", "tokens": 8192, "developer": "Google"},
-
+            "llama-3.1-8b-instant": {"name": "llama-3.1-8b-instant", "tokens": 131072, "developer": "Meta"},
+            "llama-3.1-70b-versatile": {"name": "llama-3.1-70b-versatile", "tokens": 131072, "developer": "Meta"},
+            "llama-3.1-405b-reasoning": {"name": "llama-3.1-405b-reasoning", "tokens": 131072, "developer": "Meta"},
         }
 
 
