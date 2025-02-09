@@ -38,7 +38,7 @@ class CustomAIStudio:
             "llama-3.1-8b-instant": {"name": "llama-3.1-8b-instant", "tokens": 131072, "developer": "Meta"},
             "llama-3.1-70b-versatile": {"name": "llama-3.1-70b-versatile", "tokens": 131072, "developer": "Meta"},
             "llama-3.1-405b-reasoning": {"name": "llama-3.1-405b-reasoning", "tokens": 131072, "developer": "Meta"},
-            "deepseek-r1-distill-llama-70b": {"name": "deepseek-r1-distill-llama-70b", "tokens": 4096, "developer": "DeepSeek"}
+            "deepseek-r1-distill-llama-70b": {"name": "deepseek-r1-distill-llama-70b", "tokens": 131072, "developer": "DeepSeek"}
         }
 
 
